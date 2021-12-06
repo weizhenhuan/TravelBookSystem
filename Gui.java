@@ -1,5 +1,3 @@
-import com.sun.tools.jconsole.JConsoleContext;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,93 +10,147 @@ import java.awt.event.ActionListener;
  **/
 public class Gui extends JFrame implements ActionListener {
     MenuBar menuBar;
-    Menu addInfo, reservation, exit;
-    MenuItem addFlight, addBus, addHotel;
-    MenuItem bookFlight, bookBus, bookHotel;
+    Menu addInfo, reserve, query, exit;
+    MenuItem addFlight, addBus, addHotel, addCustomer;
+    MenuItem reserveFlight, reserveBus, reserveHotel;
+    MenuItem queryFlight, queryBus, queryHotel, queryCustomer;
     MenuItem exitItem;
-    Panel contentPanel;
+    JPanel contentPanel;
+    CardLayout c1 = new CardLayout();
+    Message message = new Message();
+
+    WelcomePanel welcomePanel = new WelcomePanel();
+    AddFlightPanel addFlightInfoPanel = new AddFlightPanel();
+    AddHotelPanel addHotelPanel = new AddHotelPanel();
+    AddBusPanel addBusPanel = new AddBusPanel();
+    ReserveFlightPanel reserveFlightPanel = new ReserveFlightPanel();
+    ReserveBusPanel reserveBusPanel = new ReserveBusPanel();
+    ReserveHotelPanel reserveHotelPanel = new ReserveHotelPanel();
 
     public Gui() {
         //init MenuBar
         menuBar = new MenuBar();
 
         //init Menu
-        addInfo = new Menu("add");
-        reservation = new Menu("reservation");
+        addInfo = new Menu("add / update");
+        reserve = new Menu("reserve");
+        query = new Menu("query");
         exit = new Menu("exit");
 
         //init MenuItem
-        addFlight = new MenuItem("flight");
-        addBus = new MenuItem("bus");
-        addHotel = new MenuItem("hotel");
-        bookFlight = new MenuItem("flight");
-        bookBus = new MenuItem("bus");
-        bookHotel = new MenuItem("hotel");
-        exitItem = new MenuItem("exit");
+        initMenuItem();
 
-        contentPanel = new Panel();
+        contentPanel = new JPanel();
 
         //add action listener
-        addFlight.addActionListener(this);
-        addBus.addActionListener(this);
-        addHotel.addActionListener(this);
-
-        bookHotel.addActionListener(this);
-        bookBus.addActionListener(this);
-        bookFlight.addActionListener(this);
-
-        exitItem.addActionListener(this);
+        itemAddActionListener();
 
         addInfo.add(addFlight);
         addInfo.add(addBus);
         addInfo.add(addHotel);
-        reservation.add(bookBus);
-        reservation.add(bookFlight);
-        reservation.add(bookHotel);
+        addInfo.add(addCustomer);
+        reserve.add(reserveFlight);
+        reserve.add(reserveHotel);
+        reserve.add(reserveBus);
+        query.add(queryFlight);
+        query.add(queryHotel);
+        query.add(queryBus);
+        query.add(queryCustomer);
         exit.add(exitItem);
 
         //menuBar add
         menuBar.add(addInfo);
-        menuBar.add(reservation);
+        menuBar.add(reserve);
+        menuBar.add(query);
         menuBar.add(exit);
 
-        JLabel label1 = new JLabel("------------------------------------------------------");
-//        label1.setBounds(new Rectangle(10,20,14,50));
-        label1.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        JLabel label2 = new JLabel("* Welcome to Travel Booking System *");
-//        label2.setBounds(new Rectangle(500,120,14,50));
-        label2.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        JLabel label3 = new JLabel("------------------------------------------------------");
-//        label1.setBounds(new Rectangle(10,20,14,50));
-        label1.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        contentPanel.add(label1);
-        contentPanel.add(label2);
-        contentPanel.add(label3);
-        contentPanel.setLayout(new GridLayout(3,1,20,10));
+        addChildPanel();
 
         add(contentPanel, BorderLayout.CENTER);
         setMenuBar(menuBar);
-        setLayout(new FlowLayout());
         setTitle("Travel Booking System");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(500, 500, 400, 300);
+        setBounds(600, 200, 400, 300);
+        setIconImage(null);
         setResizable(false);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if(source == addHotel) {
-//            showSpecificPanel(contentPanel, new MyPanel("add hotel information"));
-            showSpecificPanel(contentPanel, new addFlightInfoPanel());
+        if(source == addFlight) {
+            c1.first(contentPanel);
+            c1.next(contentPanel);
         }
-        else if(source == exit)
-            showSpecificPanel(new Panel(), contentPanel);
+        else if(source == addHotel) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 2; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == addBus) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 3; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == addCustomer) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 4; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == reserveFlight) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 5; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == reserveHotel) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 6; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == reserveBus) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 7; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == queryFlight) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 8; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == queryHotel) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 9; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == queryBus) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 10; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == queryCustomer) {
+            c1.first(contentPanel);
+            for (int i = 0; i < 11; i++) {
+                c1.next(contentPanel);
+            }
+        }
+        else if(source == exitItem) {
+            c1.first(contentPanel);
+        }
+    }
 
+    public void changeContentPane(Container contentPane) {
+        this.setContentPane(contentPane);
+        this.revalidate();
     }
 
     void showSpecificPanel(Panel contentPanel, Panel showPanel) {
@@ -108,9 +160,59 @@ public class Gui extends JFrame implements ActionListener {
         contentPanel.repaint();
     }
 
-    class MyPanel extends Panel {
-        public MyPanel(String msg) {
-            this.add(new JLabel(msg));
-        }
+    private void initMenuItem() {
+        addFlight = new MenuItem("flight");
+        addBus = new MenuItem("bus");
+        addHotel = new MenuItem("hotel");
+        addCustomer = new MenuItem("customer");
+        reserveFlight = new MenuItem("flight");
+        reserveBus = new MenuItem("bus");
+        reserveHotel = new MenuItem("hotel");
+        queryFlight = new MenuItem("flight");
+        queryBus = new MenuItem("bus");
+        queryHotel = new MenuItem("hotel");
+        queryCustomer = new MenuItem("customer");
+        exitItem = new MenuItem("exit");
+    }
+
+    private void itemAddActionListener() {
+        addFlight.addActionListener(this);
+        addBus.addActionListener(this);
+        addHotel.addActionListener(this);
+        addCustomer.addActionListener(this);
+
+        reserveHotel.addActionListener(this);
+        reserveBus.addActionListener(this);
+        reserveFlight.addActionListener(this);
+
+        queryHotel.addActionListener(this);
+        queryBus.addActionListener(this);
+        queryFlight.addActionListener(this);
+        queryCustomer.addActionListener(this);
+        exitItem.addActionListener(this);
+    }
+    private void addChildPanel() {
+
+//        contentPanel.add(new WelcomePanel());
+//        contentPanel.add(new AddFlightInfoPanel(),"1");
+//        contentPanel.add(new AddHotelPanel(),"2");
+//        contentPanel.add(new AddBusPanel(),"3");
+//        contentPanel.add(new ReserveFlightPanel(),"4");
+//        contentPanel.add(new ReserveHotelPanel(),"5");
+//        contentPanel.add(new ReserveBusPanel(),"6");
+        contentPanel.add(welcomePanel);
+        contentPanel.add(addFlightInfoPanel);
+        contentPanel.add(addHotelPanel);
+        contentPanel.add(addBusPanel);
+        contentPanel.add(new AddCustomerPanel());
+        contentPanel.add(reserveFlightPanel);
+        contentPanel.add(reserveHotelPanel);
+        contentPanel.add(reserveBusPanel);
+        contentPanel.add(new QueryFlightInfo());
+        contentPanel.add(new QueryHotelInfo());
+        contentPanel.add(new QueryBusInfo());
+        contentPanel.add(new QueryCustomerInfo());
+
+        contentPanel.setLayout(c1);
     }
 }

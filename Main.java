@@ -1,70 +1,48 @@
+import java.util.concurrent.TimeUnit;
+
 /**
- * File: main.java
- * Author: LittleLittleWei
+ * File: Main.java
+ * Author: weizhenhuan
  * Time: 2021/10/31 18:07
  **/
-import java.sql.*;
-
 public class Main {
-    public static void main(String[] args) {
-        Menu1.helloMenu();
-        Gui gui = new Gui();
+    private static final int max=30, min=25;
 
-//        Connection conn = null;
-//        Statement stmt = null;
-//        ResultSet rs = null;
+    public static void main(String[] args) throws InterruptedException {
+        Gui gui = new Gui();
+//        DatabaseManager databaseManager = new DatabaseManager();
+//       for (int i = 0; i < 50; i++) {
+//            int data1 = getData();
+//            int data2 = getData();
+//            int data3 = getData();
+//            int data4 = getData();
 //
-//        try {
-//            // 加载驱动类
-//            Class.forName("com.mysql.jdbc.Driver");
-//            long start = System.currentTimeMillis();
-//
-//            // 建立连接
-//            conn = DriverManager.getConnection("jdbc:mysql://101.42.109.18:3306/database",
-//                    "database", "123456");
-//            long end = System.currentTimeMillis();
-//            System.out.println(conn);
-//            System.out.println("建立连接耗时： " + (end - start) + "ms 毫秒");
-//
-//            // 创建Statement对象
-//            stmt = conn.createStatement();
-//
-//            // 执行SQL语句
-//            rs = stmt.executeQuery("select * from test");
-//            System.out.println("id\tname\tage\tsex");
-//            while (rs.next()) {
-//                System.out.println(rs.getInt(1) + "\t" + rs.getString(2)
-//                        + "\t" + rs.getInt(3) + "\t" + rs.getInt(4));
-//            }
-//
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//
-//            try {
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//            try {
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
+//            DatabaseManager.addDianjiData(data1,data2,data3,data4);
+//            TimeUnit.SECONDS.sleep(1);
 //        }
+//        for (int i = 0; i < 30; i++) {
+//            int data = getData();
+//            DatabaseManager.addFengjidianjiData(data);
+//            TimeUnit.SECONDS.sleep(1);
+//        }
+//        for (int i = 0; i < 30; i++) {
+//            int data = getData();
+//            DatabaseManager.addFengjishanyeData(data);
+//            TimeUnit.SECONDS.sleep(1);
+//        }
+//        for (int i = 0; i < 30; i++) {
+//            int data = getData();
+//            DatabaseManager.addJiansujiData(data);
+//            TimeUnit.SECONDS.sleep(1);
+//        }
+//        for (int i = 0; i < 30; i++) {
+//            int data = getData();
+//            DatabaseManager.addQitaData(data);
+//            TimeUnit.SECONDS.sleep(1);
+//        }
+    }
+
+    private static int getData() {
+        return (int) (Math.random()*(max-min)+min);
     }
 }
