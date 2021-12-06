@@ -14,6 +14,7 @@ public class QueryCustomerInfo extends JPanel implements ActionListener {
     JTextField textField;
     JTextArea textArea;
     JPanel[] panels;
+    JScrollPane scrollPane;
 
     public  QueryCustomerInfo() {
         panels = new JPanel[3];
@@ -23,12 +24,14 @@ public class QueryCustomerInfo extends JPanel implements ActionListener {
         submit = new JButton("submit");
         label = new JLabel("name");
         textField = new JTextField(10);
-        textArea = new JTextArea(1000,30);
+        textArea = new JTextArea(10,30);
+        scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         panels[0].add(label);
         panels[0].add(textField);
         panels[0].add(submit);
-        panels[1].add(textArea);
+        panels[1].add(scrollPane);
         for(int i = 0; i < 2; i++)
             add(panels[i]);
 
@@ -36,13 +39,11 @@ public class QueryCustomerInfo extends JPanel implements ActionListener {
         setVisible(false);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         String name = textField.getText();
-        System.out.println(name);
-        if(e.getSource() == submit) {
+        if(source == submit) {
             String info = DatabaseManager.queryCustomerInfo(name);
             textArea.setText(info);
         }

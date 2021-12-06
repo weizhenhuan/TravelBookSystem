@@ -15,4 +15,20 @@ public class BusInfo {
         this.numBus = numBus;
         this.numAvail = numAvail;
     }
+
+    public int getNumAvail() {
+        return numAvail;
+    }
+
+    public int getNumBus() {
+        return numBus;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 }

@@ -1,6 +1,10 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * File: DatabaseManager.java
@@ -291,7 +295,12 @@ public class DatabaseManager {
     }
 
     public static String queryCustomerInfo(String name) {
-        String info = new String();
+        String info = "";
+        String route = new String();
+        String start = "";
+        ArrayList<String> fromCities = new ArrayList<String>();
+        ArrayList<String> arivCities = new ArrayList<String>();
+        int i = 1;
         try {
             String word = "SELECT * FROM reservations where custName = ?";
             PreparedStatement ps = conn.prepareStatement(word);
@@ -300,19 +309,80 @@ public class DatabaseManager {
             while (rs.next()) {
                 int resvType = rs.getInt("resvType");
                 if (resvType == 1) {
-
+                    String flightNum = rs.getString("info");
+                    FlightInfo flightInfo = queryFlightInfo(flightNum);
+                    start = (start == ""? flightInfo.getFromCity() : start);
+                    String subInfo = String.valueOf(i++) + ". booking a flights \"" +
+                            flightNum + "\" from \"" + flightInfo.getFromCity() +
+                            "\" to \"" + flightInfo.getArivCity() + "\"\n";
+                    info += subInfo;
+                    fromCities.add(flightInfo.getFromCity());
+                    arivCities.add(flightInfo.getArivCity());
                 }
                 else if (resvType == 2) {
-
+                    String location = rs.getString("info");
+                    String subInfo = String.valueOf(i++) + ". booking a hotel in \"" +
+                            location + "\"\n";
+                    info += subInfo;
                 }
                 else if (resvType == 3) {
-
+                    String location = rs.getString("info");
+                    String subInfo = String.valueOf(i++) + ". booking a  bus in \"" +
+                            location + "\"\n";
+                    info += subInfo;
                 }
             }
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
+        route = getRoute(fromCities, arivCities);
+        info += "\n" + route;
         return info;
+    }
+
+    private static String getRoute(ArrayList<String> fromCities, ArrayList<String> arivCities) {
+        System.out.println(fromCities);
+        System.out.println(arivCities);
+        String route = "";
+        String start = "", end = "";
+        boolean flag = true;
+        int cnt = 0;
+        int size = fromCities.size();
+        boolean[] vis = new boolean[size];
+        for (int j = 0; j < size; j++) {
+            if(!vis[j]) {
+                if(j != 0)  route += "\n";
+                String start1 = fromCities.get(j);
+                int i = j;
+//                vis[i] = true;
+                end = arivCities.get(i);
+                route += "route" + ++cnt + ":\n";
+                route += start1 + " ====> " + end + "\n";
+                for (i = 0; i < fromCities.size(); i++) {
+                    System.out.println("1:" + i);
+                    if(!vis[i]) {
+                        System.out.println("2:" + i);
+                        start = fromCities.get(i);
+                        System.out.println("3:" + i);
+                        System.out.println(start + " " + end);
+                        if (start == end) {
+                            vis[i] = true;
+                            end = arivCities.get(i);
+                            route += start + " ====> " + end + "\n";
+                            i = 0;
+                            System.out.println(start + " " + end);
+                        }
+                    }
+                }
+                if(start1 != end)
+                    flag = false;
+            }
+        }
+        if(flag)
+            route += "该路线完整";
+        else
+            route += "该路线不完整";
+        return route;
     }
 }

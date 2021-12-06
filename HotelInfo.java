@@ -15,4 +15,20 @@ public class HotelInfo {
         this.numRooms = numRooms;
         this.numAvail = numAvail;
     }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getNumAvail() {
+        return numAvail;
+    }
+
+    public int getNumRooms() {
+        return numRooms;
+    }
 }

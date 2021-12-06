@@ -20,4 +20,29 @@ public class FlightInfo {
         this.fromCity = fromCity;
         this.arivCity = arivCity;
     }
+
+    public int getNumAvail() {
+        return numAvail;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getNumSeats() {
+        return numSeats;
+    }
+
+    public String getArivCity() {
+        return arivCity;
+    }
+
+    public String getFlightNum() {
+        return flightNum;
+    }
+
+    public String getFromCity() {
+        return fromCity;
+    }
+
 }

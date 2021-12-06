@@ -52,6 +52,9 @@ public class ReserveBusPanel extends ReservePanel implements ActionListener {
         else if(source == back) {
 
         }
+        for (int i = 0; i < 2; i++) {
+            textFields[i].setText("");
+        }
     }
 
 }
