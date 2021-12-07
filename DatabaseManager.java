@@ -160,7 +160,7 @@ public class DatabaseManager {
             return false;
         }
     }
-    //TODO 查询后加失败界面
+
     public static HotelInfo queryHotelInfo(String location) {
         HotelInfo hotelInfo = new HotelInfo(location, 0, 0, 0);
         try {
@@ -342,40 +342,34 @@ public class DatabaseManager {
     }
 
     private static String getRoute(ArrayList<String> fromCities, ArrayList<String> arivCities) {
-        System.out.println(fromCities);
-        System.out.println(arivCities);
+        int size = fromCities.size();
         String route = "";
+        if (size == 0)
+            return route;
         String start = "", end = "";
         boolean flag = true;
         int cnt = 0;
-        int size = fromCities.size();
         boolean[] vis = new boolean[size];
         for (int j = 0; j < size; j++) {
             if(!vis[j]) {
                 if(j != 0)  route += "\n";
                 String start1 = fromCities.get(j);
                 int i = j;
-//                vis[i] = true;
                 end = arivCities.get(i);
                 route += "route" + ++cnt + ":\n";
                 route += start1 + " ====> " + end + "\n";
                 for (i = 0; i < fromCities.size(); i++) {
-                    System.out.println("1:" + i);
                     if(!vis[i]) {
-                        System.out.println("2:" + i);
                         start = fromCities.get(i);
-                        System.out.println("3:" + i);
-                        System.out.println(start + " " + end);
-                        if (start == end) {
+                        if (start.equals(end)) {
                             vis[i] = true;
                             end = arivCities.get(i);
                             route += start + " ====> " + end + "\n";
                             i = 0;
-                            System.out.println(start + " " + end);
                         }
                     }
                 }
-                if(start1 != end)
+                if(!start1.equals(end))
                     flag = false;
             }
         }

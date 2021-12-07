@@ -44,11 +44,19 @@ public class AddHotelPanel extends AddPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        String location = textFields[0].getText();
-        int price = Integer.parseInt(textFields[1].getText());
-        int numRooms = Integer.parseInt(textFields[2].getText());
-        int numAvail = Integer.parseInt(textFields[3].getText());
-
+        String location = null;
+        int price = 0;
+        int numRooms = 0;
+        int numAvail = 0;
+        try {
+            location = textFields[0].getText();
+            price = Integer.parseInt(textFields[1].getText());
+            numRooms = Integer.parseInt(textFields[2].getText());
+            numAvail = Integer.parseInt(textFields[3].getText());
+        } catch (NumberFormatException numberFormatException) {
+            Message.showInsertErrorMessage();
+            return;
+        }
         if(source == submit) {
             if(DatabaseManager.addHotelInfo(location, price,
                     numRooms, numAvail)) {

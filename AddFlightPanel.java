@@ -48,7 +48,7 @@ public class AddFlightPanel extends AddPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //TODO 初始化所有的
+//        //TODO 初始化所有的
         String flightNum = "null";
         int price = 0;
         int numSeats = 0;
@@ -65,6 +65,7 @@ public class AddFlightPanel extends AddPanel implements ActionListener {
             arivCity = textFields[5].getText();
         } catch (NumberFormatException numberFormatException) {
             Message.showInsertErrorMessage();
+            return;
         };
 
         if(source == submit) {

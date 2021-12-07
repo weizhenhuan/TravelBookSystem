@@ -40,9 +40,15 @@ public class AddCustomerPanel extends AddPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        String custName = textFields[0].getText();
-        String custID = textFields[1].getText();
-
+        String custName = null;
+        String custID = null;
+        try {
+            custName = textFields[0].getText();
+            custID = textFields[1].getText();
+        } catch (NumberFormatException numberFormatException) {
+            Message.showInsertErrorMessage();
+            return;
+        }
         if(source == submit) {
 
             if(DatabaseManager.addCustomerInfo(custName, custID)) {
