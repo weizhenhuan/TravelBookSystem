@@ -4,11 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * File: Gui.java
+ * File: MainPanel.java
  * Author: LittleLittleWei
  * Time: 2021/10/31 19:29
  **/
-public class Gui extends JFrame implements ActionListener {
+public class MainPanel extends JFrame implements ActionListener {
     MenuBar menuBar;
     Menu addInfo, reserve, query, exit;
     MenuItem addFlight, addBus, addHotel, addCustomer;
@@ -27,7 +27,7 @@ public class Gui extends JFrame implements ActionListener {
     ReserveBusPanel reserveBusPanel = new ReserveBusPanel();
     ReserveHotelPanel reserveHotelPanel = new ReserveHotelPanel();
 
-    public Gui() {
+    public MainPanel() {
         //init MenuBar
         menuBar = new MenuBar();
 

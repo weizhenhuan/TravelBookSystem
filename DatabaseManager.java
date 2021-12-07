@@ -53,7 +53,6 @@ public class DatabaseManager {
             ps.execute();
             return true;
         } catch (SQLException e) {
-//            e.printStackTrace();
             return false;
         }
     }
@@ -199,7 +198,6 @@ public class DatabaseManager {
             return flightInfo;
         }
         catch (SQLException e) {
-//            e.printStackTrace();
             return flightInfo;
         }
     }
@@ -225,7 +223,8 @@ public class DatabaseManager {
         }
     }
 
-    public static boolean updateFlightInfo(String flightNum, int price, int numSeats, int numAvail, String fromCity, String arivCity) {
+    public static boolean updateFlightInfo(String flightNum, int price, int numSeats,
+                                           int numAvail, String fromCity, String arivCity) {
         try {
             String word = "UPDATE flights SET price = ?, numSeats = ?," +
                     "numAvail = ?, FromCity = ?, ArivCity = ? " +
@@ -295,6 +294,7 @@ public class DatabaseManager {
     }
 
     public static String queryCustomerInfo(String name) {
+        //TODO 增加restID
         String info = "";
         String route = new String();
         String start = "";
@@ -347,7 +347,6 @@ public class DatabaseManager {
         if (size == 0)
             return route;
         String start = "", end = "";
-        boolean flag = true;
         int cnt = 0;
         boolean[] vis = new boolean[size];
         for (int j = 0; j < size; j++) {
@@ -358,6 +357,7 @@ public class DatabaseManager {
                 end = arivCities.get(i);
                 route += "route" + ++cnt + ":\n";
                 route += start1 + " ====> " + end + "\n";
+                vis[j] = true;
                 for (i = 0; i < fromCities.size(); i++) {
                     if(!vis[i]) {
                         start = fromCities.get(i);
@@ -369,14 +369,12 @@ public class DatabaseManager {
                         }
                     }
                 }
-                if(!start1.equals(end))
-                    flag = false;
+                if(start1.equals(end))
+                    route += "该路线完整\n";
+                else
+                    route += "该路线不完整\n";
             }
         }
-        if(flag)
-            route += "该路线完整";
-        else
-            route += "该路线不完整";
         return route;
     }
 }

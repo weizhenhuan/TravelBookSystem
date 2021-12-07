@@ -48,7 +48,6 @@ public class AddFlightPanel extends AddPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        //TODO 初始化所有的
         String flightNum = "null";
         int price = 0;
         int numSeats = 0;

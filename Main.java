@@ -1,5 +1,3 @@
-import java.util.concurrent.TimeUnit;
-
 /**
  * File: Main.java
  * Author: weizhenhuan
@@ -7,7 +5,7 @@ import java.util.concurrent.TimeUnit;
  **/
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Gui gui = new Gui();
+        MainPanel mainPanel = new MainPanel();
         DatabaseManager databaseManager = new DatabaseManager();
     }
 }
